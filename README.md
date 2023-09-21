@@ -65,6 +65,7 @@ Important Commands
 - `terraform plan`
 - `terraform apply`
 - `terraform apply --auto-approve`
+- `terraform destroy`
 
 ### Terraform Lock & State Files
 - `.terraform.lock.hcl` contains the locked versioning for the providers or modulues
