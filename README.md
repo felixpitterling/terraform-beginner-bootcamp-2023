@@ -3,6 +3,7 @@
 - [Semantic Versioning](#semantic-versioning)
 - [Install the Terraform CLI](#terraform-cli)
 - [Environment Variables](#environment-variables)
+- [Terraform Basics](#terraform-basics)
 
 
 ## Semantic Versioning 
@@ -48,4 +49,31 @@ The general format:
         "Arn": "arn:aws:iam::123456789012:user/terraform-beginner-bootcamp"
     }
     ```
+
+## Terraform Basics
+
+### Terraform Registry
+
+- [Registry](https://registry.terraform.io/)
+- **Providers**: Interface to APIs
+- **Modules**: Add modular logic to create more portable and sharable IaC
+
+### Terraform CLI
+
+Important Commands
+- `terraform init`
+- `terraform plan`
+- `terraform apply`
+- `terraform apply --auto-approve`
+
+### Terraform Lock & State Files
+- `.terraform.lock.hcl` contains the locked versioning for the providers or modulues
+    - **Should be comitted**
+- `.terraform.tfstate` contains information about the current state of your infrastructure
+    - **Should not be commited**
+    - May contain sensitive data
+
+### Terraform Directory
+- `.terraform` directory contains binaries of terraform providers.
+
 
