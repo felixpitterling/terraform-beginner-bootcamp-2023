@@ -5,6 +5,7 @@
 - [Environment Variables](#environment-variables)
 - [Terraform Basics](#terraform-basics)
 
+#### **[Journal Overview ←](./../README.md#weekly-journals)**
 
 ## Semantic Versioning 
 

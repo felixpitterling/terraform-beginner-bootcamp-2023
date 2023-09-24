@@ -3,6 +3,10 @@
 - [Root Moudle Structure](#root-module-structure)
 - [Terraform and Input Variables](#terraform-and-input-variables)
 - [Configuration Drift](#configuration-drift)
+- [Terraform Modules](#terraform-modules)
+
+
+#### **[Journal Overview ←](./../README.md#weekly-journals)**
 
 ## Root Module Structure
 
@@ -50,3 +54,35 @@ PROJECT_ROOT
 - `terraform import aws_s3_bucket.bucket bucket-name`
 - [Terraform Import](https://developer.hashicorp.com/terraform/cli/import)
 - [AWS S3 Bucket Import](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket#import)
+
+### Fix using Terraform Refresh
+```sh
+terraform apply -refresh-only -auto-approve
+```
+
+
+## Terraform Modules
+- It is recommend to place modules in a `./modules` directory
+
+### Passing Input Variables
+- Example:
+    ```tf
+    module "terrahouse_aws" {
+    source = "./modules/terrahouse_aws"
+    user_uuid = var.user_uuid
+    bucket_name = var.bucket_name
+    }
+    ```
+
+### Modules Sources
+- [Modules Sources](https://developer.hashicorp.com/terraform/language/modules/sources)
+    - Local
+    - Github
+    - Terraform Registry
+
+- Example: 
+    ```tf
+    module "terrahouse_aws" {
+    source = "./modules/terrahouse_aws"
+    }
+    ```
