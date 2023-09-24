@@ -4,6 +4,7 @@
 - [Terraform and Input Variables](#terraform-and-input-variables)
 - [Configuration Drift](#configuration-drift)
 - [Terraform Modules](#terraform-modules)
+- [Working with Files](#working-with-files)
 
 
 #### **[Journal Overview ←](./../README.md#weekly-journals)**
@@ -86,3 +87,27 @@ terraform apply -refresh-only -auto-approve
     source = "./modules/terrahouse_aws"
     }
     ```
+
+## Working with Files
+
+| Function          | Description                                                                                      | Documentation Link                                      |
+|-------------------|--------------------------------------------------------------------------------------------------|---------------------------------------------------------|
+| `fileexists`      | Checks the existence of a file in Terraform.                                                    | [Official Documentation](https://developer.hashicorp.com/terraform/language/functions/fileexists)                 |
+| `filemd5`         | Calculates the MD5 hash of a file for integrity verification.                                     | [Official Documentation](https://developer.hashicorp.com/terraform/language/functions/filemd5)                    |
+| Special `path`    | Allows referencing local paths in Terraform, including `path.module` and `path.root`.           | [Filesystem and Workspace Info](https://developer.hashicorp.com/terraform/language/expressions/references#filesystem-and-workspace-info) |
+
+### Path Variable
+
+- `path` is a set variable that allows us to reference local paths:
+    - path.module = get the path for the current module
+    - path.root = get the path for the root module
+    - [Special Path Variable](https://developer.hashicorp.com/terraform/language/expressions/references#filesystem-and-workspace-info)
+
+### Example: Copying an `index.html` file to an AWS S3 bucket:
+
+```hcl
+resource "aws_s3_object" "index_html" {
+  bucket = aws_s3_bucket.website_bucket.bucket
+  key    = "index.html"
+  source = "${path.root}/public/index.html"
+}
