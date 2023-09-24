@@ -2,6 +2,7 @@
 
 - [Root Moudle Structure](#root-module-structure)
 - [Terraform and Input Variables](#terraform-and-input-variables)
+- [Configuration Drift](#configuration-drift)
 
 ## Root Module Structure
 
@@ -38,3 +39,14 @@ PROJECT_ROOT
 | `terraform.tfvars` | Default variable file for Terraform     | N/A                                      |
 | `auto.tfvars`    | Auto-loaded variable file in Terraform Cloud | N/A                                  |
 
+
+## Configuration Drift
+
+### What happens if we lose our state file?
+- You will have to destroy your cloud infrastructure manually.
+- You can use terraform port for some resources
+
+### Fix Missing Resources with Terraform Import
+- `terraform import aws_s3_bucket.bucket bucket-name`
+- [Terraform Import](https://developer.hashicorp.com/terraform/cli/import)
+- [AWS S3 Bucket Import](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket#import)
