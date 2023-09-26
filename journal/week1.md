@@ -5,6 +5,8 @@
 - [Configuration Drift](#configuration-drift)
 - [Terraform Modules](#terraform-modules)
 - [Working with Files](#working-with-files)
+- [Terraform Locals & Data Sources](#terraform-locals--data-sources)
+- [Working with JSON](#working-with-json)
 
 
 #### **[Journal Overview ←](./../README.md#weekly-journals)**
@@ -111,3 +113,31 @@ resource "aws_s3_object" "index_html" {
   key    = "index.html"
   source = "${path.root}/public/index.html"
 }
+```
+
+## Terraform Locals & Data Sources
+- [Local Values](https://developer.hashicorp.com/terraform/language/values/locals)
+
+```tf
+locals {
+  s3_origin_id = "MyS3Origin"
+}
+```
+
+- [Data Sources](https://developer.hashicorp.com/terraform/language/data-sources)
+
+```tf
+data "aws_caller_identity" "current" {}
+output "account_id" {
+  value = data.aws_caller_identity.current.account_id
+}
+```
+
+## Working with JSON
+- [jsonencode](https://developer.hashicorp.com/terraform/language/functions/jsonencode)
+
+```tf
+> jsonencode({"hello"="world"})
+{"hello":"world"}
+```
+
