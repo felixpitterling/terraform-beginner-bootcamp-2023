@@ -10,6 +10,7 @@
 - [Resource Lifecycle](#resource-lifecycle)
 - [Terraform Data Behavior](#terraform-data-behavior)
 - [Provisioners (Local-exec & Remote-exec)](#provisioners-local-exec--remote-exec)
+- [For Each Expressions](#for-each-expressions)
 
 
 #### **[Journal Overview ←](./../README.md#weekly-journals)**
@@ -173,7 +174,7 @@ resource "aws_instance" "web" {
 ```
 
 
-- [Remote-Exec](https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec)
+- [Remote-exec](https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec)
     - This will execute commands on a machine which you target. You will need to provide credentials such as ssh to get into the machine.
 
 ```tf
@@ -194,4 +195,11 @@ resource "aws_instance" "web" {
     ]
   }
 }
+```
+
+## For Each Expressions
+- [For Each Expressions](https://developer.hashicorp.com/terraform/language/expressions/for)
+
+```sh
+[for s in var.list : upper(s)]
 ```
