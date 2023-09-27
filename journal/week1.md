@@ -9,6 +9,7 @@
 - [Working with JSON](#working-with-json)
 - [Resource Lifecycle](#resource-lifecycle)
 - [Terraform Data Behavior](#terraform-data-behavior)
+- [Provisioners (Local-exec & Remote-exec)](#provisioners-local-exec--remote-exec)
 
 
 #### **[Journal Overview ←](./../README.md#weekly-journals)**
@@ -151,3 +152,46 @@ output "account_id" {
 - In Terraform, plain data values like Local Values and Input Variables lack side-effects for planning and are not valid for use in `replace_triggered_by`. To indirectly trigger replacement, leverage Terraform Data's behavior, which plans an action when inputs change.
 
 - [Documentation](https://developer.hashicorp.com/terraform/language/resources/terraform-data).
+
+
+## Provisioners (Local-exec & Remote-exec)
+- [Provisioners](https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax)
+    - Provisioners allow you to execute commands on compute instances eg. a AWS CLI command.
+    - They are not recommended because Configuration Management tools such as Ansible are a better fit
+
+
+- [Local-exec](https://developer.hashicorp.com/terraform/language/resources/provisioners/local-exec)
+    - This will execute command on the machine running the terraform commands eg. plan apply
+
+```tf
+resource "aws_instance" "web" {
+  # ...
+  provisioner "local-exec" {
+    command = "echo The server's IP address is ${self.private_ip}"
+  }
+}
+```
+
+
+- [Remote-Exec](https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec)
+    - This will execute commands on a machine which you target. You will need to provide credentials such as ssh to get into the machine.
+
+```tf
+resource "aws_instance" "web" {
+  # ...
+  # Establishes connection to be used by all
+  # generic remote provisioners (i.e. file/remote-exec)
+  connection {
+    type     = "ssh"
+    user     = "root"
+    password = var.root_password
+    host     = self.public_ip
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "puppet apply",
+      "consul join ${aws_instance.web.private_ip}",
+    ]
+  }
+}
+```
