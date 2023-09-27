@@ -7,6 +7,8 @@
 - [Working with Files](#working-with-files)
 - [Terraform Locals & Data Sources](#terraform-locals--data-sources)
 - [Working with JSON](#working-with-json)
+- [Resource Lifecycle](#resource-lifecycle)
+- [Terraform Data Behavior](#terraform-data-behavior)
 
 
 #### **[Journal Overview ←](./../README.md#weekly-journals)**
@@ -141,3 +143,11 @@ output "account_id" {
 {"hello":"world"}
 ```
 
+## Resource Lifecycle
+- [Meta Arguments Lifcycle](https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle)
+
+
+## Terraform Data Behavior
+- In Terraform, plain data values like Local Values and Input Variables lack side-effects for planning and are not valid for use in `replace_triggered_by`. To indirectly trigger replacement, leverage Terraform Data's behavior, which plans an action when inputs change.
+
+- [Documentation](https://developer.hashicorp.com/terraform/language/resources/terraform-data).
