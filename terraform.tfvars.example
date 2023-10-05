@@ -1,6 +1,9 @@
-bucket_name="wbybd7pb6bl0rxttgalyldb7982xskr6"
-index_html_filepath="/workspace/terraform-beginner-bootcamp-2023/public/index.html"
-error_html_filepath="/workspace/terraform-beginner-bootcamp-2023/public/error.html"
-content_version=1
-assets_path="/workspace/terraform-beginner-bootcamp-2023/public/assets/"
 terratowns_endpoint="https://terratowns.cloud/api"
+starcraft = {
+  public_path = "/workspace/terraform-beginner-bootcamp-2023/public/starcraft"
+  content_version = 2 
+}
+payday = {
+  public_path = "/workspace/terraform-beginner-bootcamp-2023/public/payday"
+  content_version = 1 
+}
