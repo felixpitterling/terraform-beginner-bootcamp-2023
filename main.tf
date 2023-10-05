@@ -5,13 +5,13 @@ terraform {
       version = "1.0.0"
     }
   }
-  # cloud {
-  #   organization = "felixpitterling"
+  cloud {
+    organization = "felixpitterling"
 
-  #   workspaces {
-  #     name = "terra-house-1"
-  #   }
-  # }
+    workspaces {
+      name = "terra-house-1"
+    }
+  }
 }
 
 provider "terratowns" {
@@ -20,27 +20,38 @@ provider "terratowns" {
   token = var.terratowns_access_token
 }
 
-module "terrahouse_aws" {
-  source = "./modules/terrahouse_aws"
+module "home_starcraft_hosting" {
+  source = "./modules/terrahome_aws"
   user_uuid = var.teacherseat_user_uuid
-  index_html_filepath = var.index_html_filepath
-  error_html_filepath = var.error_html_filepath
-  content_version = var.content_version
-  assets_path = var.assets_path
+  public_path = var.starcraft.public_path
+  content_version = var.starcraft.content_version
 }
 
-resource "terratowns_home" "home" {
-  name = "How to play Arcanum!"
+resource "terratowns_home" "home_starcraft" {
+  name = "How to play Starcraft in 2023!"
   description = <<DESCRIPTION
-Arcanum is a game from 2001 that shipped with alot of bugs.
-Modders have removed all the originals making this game really fun
-to play (despite that old look graphics). This is my guide that will
-show you how to play arcanum without spoiling the plot.
+StarCraft is a real-time strategy video game developed and published by Blizzard!
 DESCRIPTION
-  # domain_name = "3fdq3gz.cloudfront.net"
-  domain_name = module.terrahouse_aws.cloudfront_url
-  town = "gamers-grotto"
-  content_version = 1
+  domain_name = module.home_starcraft_hosting.domain_name
+  town = "missingo"
+  content_version = var.starcraft.content_version
 }
 
+module "home_payday_hosting" {
+  source = "./modules/terrahome_aws"
+  user_uuid = var.teacherseat_user_uuid
+  public_path = var.payday.public_path
+  content_version = var.payday.content_version
+}
 
+resource "terratowns_home" "home_payday" {
+  name = "Making your Payday Bar"
+  description = <<DESCRIPTION
+Since I really like Payday candy bars but they cost so much to import
+into Canada, I decided I would see how I could my own Paydays bars,
+and if they are most cost effective.
+DESCRIPTION
+  domain_name = module.home_payday_hosting.domain_name
+  town = "missingo"
+  content_version = var.payday.content_version
+}
